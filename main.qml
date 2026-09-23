@@ -144,7 +144,7 @@ Window {
                 required property bool fileIsDir
 
                 width: ListView.view.width
-                text: (fileIsDir ? "[DIR]  " : "       ") + fileName
+                text: fileName + (fileIsDir ? "/" : "")
 
                 // Visual feedback for the currently selected item
                 highlighted: ListView.isCurrentItem
