@@ -1,17 +1,17 @@
-#include "capy.hpp"
-#include "QtWidgets/qapplication.h"
-#include <stdio.h>
+#include "qurl.h"
+#include <QGuiApplication>
+#include <QtQml/QQmlApplicationEngine>
 
 #define PROJECT_NAME "capy"
 
 int main(int argc, char **argv) {
-  if (argc != 1) {
-    printf("%s takes no arguments.\n", argv[0]);
-    return 1;
-  }
-  QApplication a(argc, argv);
-  CapyWindow w;
+  QGuiApplication app(argc,argv);
+  QQmlApplicationEngine engine;
+  engine.load(QUrl("qrc:/main.qml"));
 
-  w.show();
-  return a.exec();
+  if (engine.rootObjects().isEmpty()) {
+      return -1;
+  }
+
+  return app.exec();
 }

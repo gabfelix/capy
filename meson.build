@@ -6,25 +6,23 @@ project(
     default_options: ['warning_level=3'],
 )
 
-
 qt6 = import('qt6')
-qt6_dep = dependency('qt6', modules: ['Core', 'Gui', 'Widgets'])
-moc_files = qt6.compile_moc(headers: 'capy.hpp',
-                            extra_args: ['-DMAKES_MY_MOC_HEADER_COMPILE'],
-                            dependencies: qt6_dep)
-
+qt6_dep = dependency('qt6', modules: ['Core', 'Gui', 'Qml', 'Quick'])
+qt_processed = qt6.preprocess(
+  qresources: 'resources.qrc'
+)
 dependencies = [qt6_dep]
 
 sources = [
     'capy.cpp',
 ]
 
-headers = ['capy.hpp']
+headers = []
 
 exe = executable(
     'capy',
     sources + headers,
-    moc_files,
+    qt_processed,
     dependencies: dependencies,
     install: true,
 )
